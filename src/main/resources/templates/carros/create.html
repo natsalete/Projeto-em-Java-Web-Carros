@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Carros - AutoElite</title>
+    
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+        integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg=="
+        crossorigin="anonymous"
+    />
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+            color: #f8f9fa;
+        }
+        .header-bg {
+            background-color: #212529;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .car-form {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">AutoElite</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Veículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cadastro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-bg text-center">
+        <div class="container">
+            <h1>Cadastro de Veículos</h1>
+            <p class="lead">Adicione novos carros ao nosso inventário</p>
+        </div>
+    </header>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="car-form">
+                    <h2 class="mb-4 text-center">Dados do Veículo</h2>
+                    <form action="#" th:action="@{/carros/save}" th:object="${carros}" method="POST">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="marca" class="form-label">Marca</label>
+                                <input type="text" th:field="*{marca}" class="form-control" id="marca" name="marca" placeholder="Ex: Ferrari, BMW, Audi">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="modelo" class="form-label">Modelo</label>
+                                <input type="text" th:field="*{modelo}" class="form-control" id="modelo" name="modelo" placeholder="Ex: 488 GTB, X6, A3">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="ano" class="form-label">Ano</label>
+                                <input type="number" th:field="*{ano}" class="form-control" id="ano" name="ano" placeholder="Ex: 2025">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cor" class="form-label">Cor</label>
+                                <input type="text" th:field="*{cor}" class="form-control" id="cor" name="cor" placeholder="Ex: Azul, Preto, Vermelho">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="combustivel" class="form-label">Combustível</label>
+                                <select th:field="*{combustivel}" class="form-select" id="combustivel" name="combustivel">
+                                    <option value="">Selecione o tipo de combustível</option>
+                                    <option value="FLEX">Flex</option>
+                                    <option value="GASOLINA">Gasolina</option>
+                                    <option value="DIESEL">Diesel</option>
+                                    <option value="ETANOL">Etanol</option>
+                                    <option value="ELETRICO">Elétrico</option>
+                                    <option value="HIBRIDO">Híbrido</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="quilometragem" class="form-label">Quilometragem</label>
+                                <input type="number" th:field="*{quilometragem}" class="form-control" id="quilometragem" name="quilometragem" placeholder="Ex: 0">
+                            </div>
+                        </div>
+                    
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="placa" class="form-label">Placa</label>
+                                <input type="text" th:field="*{placa}" class="form-control" id="placa" name="placa" placeholder="Ex: ABC-1234">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="renavam" class="form-label">Renavam</label>
+                                <input type="text" th:field="*{renavam}" class="form-control" id="renavam" name="renavam" placeholder="Ex: 12345678912">
+                            </div>
+                        </div>
+                    
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Cadastrar Veículo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>© 2025 AutoElite - Comércio de Veículos de Luxo</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha512-VK2zcvntEufaimc+efOYi622VN5ZacdnufnmX7zIhCPmjhKnOi9ZDMtg1/ug5l183f19gG1/cBstPO4D8N/Img==" crossorigin="anonymous"></script>
+</body>
+</html>
