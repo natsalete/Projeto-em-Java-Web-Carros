@@ -210,11 +210,10 @@
                             <a th:href="@{/carros/view/{placa}(placa=${carros.placa})}" class="btn btn-sm btn-info btn-action" title="Visualizar">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <button class="btn btn-sm btn-danger btn-action" title="Excluir" 
-                                    onclick="if(confirm('Tem certeza que deseja excluir este veículo?')) { window.location.href='/carros/delete/' + this.getAttribute('data-placa'); }"
-                                    th:attr="data-placa=${carros.placa}">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <a th:href="@{/carros/delete/{id}(id=${carros.id})}" class="btn btn-sm btn-danger btn-action" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este veículo?');">
+                              <i class="fas fa-trash"></i>
+                          </a>
+             </td>
                         </td>
                     </tr>
                 </tbody>

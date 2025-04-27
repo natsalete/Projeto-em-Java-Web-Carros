@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.iftm.projeto.carros.model.Carros;
 import com.iftm.projeto.carros.service.CarrosService;
 import org.springframework.web.bind.annotation.ModelAttribute;
- import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CarrosController {
@@ -31,6 +32,12 @@ public class CarrosController {
      @PostMapping("/carros/save")
      public String postMethodName(@ModelAttribute("carros") Carros carros) {
          carrosService.saveCarros(carros);
+         return "redirect:/carros";
+     }
+
+     @GetMapping("/carros/delete/{id}")
+     public String delete(@PathVariable Long id) {
+         this.carrosService.deleteCarrosById(id);
          return "redirect:/carros";
      }
 }
