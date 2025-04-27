@@ -30,7 +30,7 @@ public class CarrosController {
      }
  
      @PostMapping("/carros/save")
-     public String postMethodName(@ModelAttribute("carros") Carros carros) {
+     public String postMethodName(@ModelAttribute Carros carros) {
          carrosService.saveCarros(carros);
          return "redirect:/carros";
      }
@@ -39,5 +39,12 @@ public class CarrosController {
      public String delete(@PathVariable Long id) {
          this.carrosService.deleteCarrosById(id);
          return "redirect:/carros";
+     }
+
+     @GetMapping("/carros/edit/{id}")
+     public String edit(@PathVariable Long id, Model model) {
+         Carros carros = carrosService.getCarrosById(id);
+         model.addAttribute("carros", carros);
+         return "carros/edit";
      }
 }

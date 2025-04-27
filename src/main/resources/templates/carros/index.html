@@ -204,7 +204,7 @@
                         </td>
                         <td class="d-none d-md-table-cell" th:text="${#numbers.formatDecimal(carros.quilometragem, 0, 'POINT', 0, 'COMMA')} + ' km'"></td>
                         <td>
-                            <a th:href="@{/carros/edit/{placa}(placa=${carros.placa})}" class="btn btn-sm btn-primary btn-action" title="Editar">
+                            <a th:href="@{/carros/edit/{id}(id=${carros.id})}" class="btn btn-sm btn-primary btn-action" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a th:href="@{/carros/view/{placa}(placa=${carros.placa})}" class="btn btn-sm btn-info btn-action" title="Visualizar">
