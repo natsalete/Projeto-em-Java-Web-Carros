@@ -18,7 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li sec:authorize="hasAuthority('Admin')" class="nav-item">
+            <li class="nav-item">
               <a
                 class="nav-link"
                 th:classappend="${activeTab == 'veiculos'} ? 'active' : ''"
@@ -29,6 +29,7 @@
             </li>
             <li class="nav-item">
               <a
+                sec:authorize="hasAuthority('Admin')"
                 class="nav-link"
                 th:classappend="${activeTab == 'cadastro'} ? 'active' : ''"
                 href="#"

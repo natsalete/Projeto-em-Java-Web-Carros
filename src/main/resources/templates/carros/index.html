@@ -1,285 +1,370 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{fragments/head :: head('Listagem de Carros')}"></head>
-<body>
-
-<body>
-    
+  <head th:replace="~{fragments/head :: head('Listagem de Carros')}"></head>
+  <body>
     <nav th:replace="~{fragments/navbar :: navbar('veiculos')}"></nav>
 
-     <header th:replace="~{fragments/header :: header('Inventário de Veículos', 'Consulte todos os carros disponíveis na AutoElite')}"></header>
+    <header
+      th:replace="~{fragments/header :: header('Inventário de Veículos', 'Consulte todos os carros disponíveis na AutoElite')}"
+    ></header>
 
     <main class="container mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Listagem de Carros</h2>
-            <a th:href="@{/carros/create}" class="btn btn-add">
-                <i class="fas fa-plus me-2"></i>Cadastrar Novo Carro
-            </a>
-        </div>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Listagem de Carros</h2>
+        <a th:href="@{/carros/create}" class="btn btn-add">
+          <i sec:authorize="hasAuthority('Admin')" class="fas fa-plus me-2"></i
+          >Cadastrar Novo Carro
+        </a>
+      </div>
 
-        <div class="filters-row mb-4">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group search-box">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar carros...">
-                        <button class="btn btn-outline-secondary" type="button" id="searchButton">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-                    <select class="form-select" id="yearFilter" style="max-width: 200px;">
-                        <option selected value="">Filtrar por Ano</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022 ou anterior</option>
-                    </select>
-                </div>
+      <div class="filters-row mb-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group search-box">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Buscar carros..."
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="searchButton"
+              >
+                <i class="fas fa-search"></i>
+              </button>
             </div>
+          </div>
+          <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+            <select
+              class="form-select"
+              id="yearFilter"
+              style="max-width: 200px"
+            >
+              <option selected value="">Filtrar por Ano</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022 ou anterior</option>
+            </select>
+          </div>
         </div>
+      </div>
 
-        <div class="cars-table">
-            <table class="table table-striped table-hover mb-0" id="carsTable">
-                <thead class="table-header">
-                    <tr>
-                        <th scope="col">Placa</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">Ano</th>
-                        <th scope="col">Cor</th>
-                        <th scope="col" class="d-none d-md-table-cell">Renavam</th>
-                        <th scope="col">Combustível</th>
-                        <th scope="col" class="d-none d-md-table-cell">Km</th>
-                        <th scope="col" class="actions-column">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${carrosList.empty}">
-                        <td colspan="9" class="empty-table">
-                            <div>
-                                <i class="fas fa-car-side fa-3x mb-3 text-muted"></i>
-                                <h4>Nenhum carro cadastrado</h4>
-                                <p class="text-muted">Cadastre o primeiro veículo usando o botão acima.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="carros : ${carrosList}" class="car-row">
-                        <td th:text="${carros.placa}" class="placa"></td>
-                        <td th:text="${carros.marca}" class="marca"></td>
-                        <td th:text="${carros.modelo}" class="modelo"></td>
-                        <td th:text="${carros.ano}" class="ano"></td>
-                        <td>
-                            <span class="d-inline-block rounded-circle me-1" style="width: 12px; height: 12px; background-color: #ddd;" th:style="${'background-color: ' + carros.cor.toLowerCase()}"></span>
-                            <span th:text="${carros.cor}" class="cor"></span>
-                        </td>
-                        <td class="d-none d-md-table-cell renavam" th:text="${carros.renavam}"></td>
-                        <td>
-                            <span class="badge badge-fuel combustivel" th:classappend="${
+      <div class="cars-table">
+        <table class="table table-striped table-hover mb-0" id="carsTable">
+          <thead class="table-header">
+            <tr>
+              <th scope="col">Placa</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">Ano</th>
+              <th scope="col">Cor</th>
+              <th scope="col" class="d-none d-md-table-cell">Renavam</th>
+              <th scope="col">Combustível</th>
+              <th scope="col" class="d-none d-md-table-cell">Km</th>
+              <th scope="col" class="actions-column">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${carrosList.empty}">
+              <td colspan="9" class="empty-table">
+                <div>
+                  <i class="fas fa-car-side fa-3x mb-3 text-muted"></i>
+                  <h4>Nenhum carro cadastrado</h4>
+                  <p class="text-muted">
+                    Cadastre o primeiro veículo usando o botão acima.
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr th:each="carros : ${carrosList}" class="car-row">
+              <td th:text="${carros.placa}" class="placa"></td>
+              <td th:text="${carros.marca}" class="marca"></td>
+              <td th:text="${carros.modelo}" class="modelo"></td>
+              <td th:text="${carros.ano}" class="ano"></td>
+              <td>
+                <span
+                  class="d-inline-block rounded-circle me-1"
+                  style="width: 12px; height: 12px; background-color: #ddd"
+                  th:style="${'background-color: ' + carros.cor.toLowerCase()}"
+                ></span>
+                <span th:text="${carros.cor}" class="cor"></span>
+              </td>
+              <td
+                class="d-none d-md-table-cell renavam"
+                th:text="${carros.renavam}"
+              ></td>
+              <td>
+                <span
+                  class="badge badge-fuel combustivel"
+                  th:classappend="${
                                 carros.combustivel == 'FLEX' ? 'bg-success' : 
                                 carros.combustivel == 'GASOLINA' ? 'bg-danger' : 
                                 carros.combustivel == 'DIESEL' ? 'bg-secondary' : 
                                 carros.combustivel == 'ETANOL' ? 'bg-info' : 
                                 carros.combustivel == 'ELETRICO' ? 'bg-primary' : 'bg-warning'
-                            }" th:text="${carros.combustivel}"></span>
-                        </td>
-                        <td class="d-none d-md-table-cell quilometragem" th:text="${#numbers.formatDecimal(carros.quilometragem, 0, 'POINT', 0, 'COMMA')} + ' km'"></td>
-                        <td>
-                            <a th:href="@{/carros/edit/{id}(id=${carros.id})}" class="btn btn-sm btn-primary btn-action" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <button type="button" class="btn btn-sm btn-info btn-action btn-view" title="Visualizar" 
-                                   th:data-id="${carros.id}"
-                                   th:data-placa="${carros.placa}"
-                                   th:data-marca="${carros.marca}"
-                                   th:data-modelo="${carros.modelo}"
-                                   th:data-ano="${carros.ano}"
-                                   th:data-cor="${carros.cor}"
-                                   th:data-renavam="${carros.renavam}"
-                                   th:data-combustivel="${carros.combustivel}"
-                                   th:data-quilometragem="${carros.quilometragem}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <a th:href="@{/carros/delete/{id}(id=${carros.id})}" class="btn btn-sm btn-danger btn-action" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este veículo?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                            }"
+                  th:text="${carros.combustivel}"
+                ></span>
+              </td>
+              <td
+                class="d-none d-md-table-cell quilometragem"
+                th:text="${#numbers.formatDecimal(carros.quilometragem, 0, 'POINT', 0, 'COMMA')} + ' km'"
+              ></td>
+              <td>
+                <a
+                  th:href="@{/carros/edit/{id}(id=${carros.id})}"
+                  class="btn btn-sm btn-primary btn-action"
+                  title="Editar"
+                >
+                  <i class="fas fa-edit"></i>
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-info btn-action btn-view"
+                  title="Visualizar"
+                  th:data-id="${carros.id}"
+                  th:data-placa="${carros.placa}"
+                  th:data-marca="${carros.marca}"
+                  th:data-modelo="${carros.modelo}"
+                  th:data-ano="${carros.ano}"
+                  th:data-cor="${carros.cor}"
+                  th:data-renavam="${carros.renavam}"
+                  th:data-combustivel="${carros.combustivel}"
+                  th:data-quilometragem="${carros.quilometragem}"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <a
+                  th:href="@{/carros/delete/{id}(id=${carros.id})}"
+                  class="btn btn-sm btn-danger btn-action"
+                  title="Excluir"
+                  onclick="return confirm('Tem certeza que deseja excluir este veículo?');"
+                >
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        <!-- Paginação -->
-        <nav aria-label="Navegação de páginas" class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Próxima</a>
-                </li>
-            </ul>
-        </nav>
+      <!-- Paginação -->
+      <nav aria-label="Navegação de páginas" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Anterior</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Próxima</a>
+          </li>
+        </ul>
+      </nav>
     </main>
 
     <!-- Modal de Visualização -->
-    <div class="modal fade" id="viewCarModal" tabindex="-1" aria-labelledby="viewCarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header car-detail-header">
-                    <h5 class="modal-title" id="viewCarModalLabel">Detalhes do Veículo</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body car-details">
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Placa:</div>
-                        <div class="col-md-9" id="modalPlaca"></div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Marca:</div>
-                        <div class="col-md-9" id="modalMarca"></div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Modelo:</div>
-                        <div class="col-md-9" id="modalModelo"></div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Ano:</div>
-                        <div class="col-md-9" id="modalAno"></div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Cor:</div>
-                        <div class="col-md-9">
-                            <span id="modalCorCircle" class="d-inline-block rounded-circle me-1" style="width: 12px; height: 12px;"></span>
-                            <span id="modalCor"></span>
-                        </div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Renavam:</div>
-                        <div class="col-md-9" id="modalRenavam"></div>
-                    </div>
-                    <div class="row detail-row">
-                        <div class="col-md-3 fw-bold">Combustível:</div>
-                        <div class="col-md-9">
-                            <span id="modalCombustivel" class="badge badge-fuel"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 fw-bold">Quilometragem:</div>
-                        <div class="col-md-9" id="modalQuilometragem"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
+    <div
+      class="modal fade"
+      id="viewCarModal"
+      tabindex="-1"
+      aria-labelledby="viewCarModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header car-detail-header">
+            <h5 class="modal-title" id="viewCarModalLabel">
+              Detalhes do Veículo
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body car-details">
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Placa:</div>
+              <div class="col-md-9" id="modalPlaca"></div>
             </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Marca:</div>
+              <div class="col-md-9" id="modalMarca"></div>
+            </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Modelo:</div>
+              <div class="col-md-9" id="modalModelo"></div>
+            </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Ano:</div>
+              <div class="col-md-9" id="modalAno"></div>
+            </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Cor:</div>
+              <div class="col-md-9">
+                <span
+                  id="modalCorCircle"
+                  class="d-inline-block rounded-circle me-1"
+                  style="width: 12px; height: 12px"
+                ></span>
+                <span id="modalCor"></span>
+              </div>
+            </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Renavam:</div>
+              <div class="col-md-9" id="modalRenavam"></div>
+            </div>
+            <div class="row detail-row">
+              <div class="col-md-3 fw-bold">Combustível:</div>
+              <div class="col-md-9">
+                <span id="modalCombustivel" class="badge badge-fuel"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 fw-bold">Quilometragem:</div>
+              <div class="col-md-9" id="modalQuilometragem"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
-    
+
     <div th:replace="~{fragments/footer :: scripts}"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha512-VK2zcvntEufaimc+efOYi622VN5ZacdnufnmX7zIhCPmjhKnOi9ZDMtg1/ug5l183f19gG1/cBstPO4D8N/Img==" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
+      integrity="sha512-VK2zcvntEufaimc+efOYi622VN5ZacdnufnmX7zIhCPmjhKnOi9ZDMtg1/ug5l183f19gG1/cBstPO4D8N/Img=="
+      crossorigin="anonymous"
+    ></script>
     <script>
-        // Script para funcionamento dos filtros e modal de visualização
-        document.addEventListener('DOMContentLoaded', function() {
-            // Função para filtrar tabela
-            function filterTable() {
-                const searchInput = document.getElementById('searchInput').value.toLowerCase();
-                const yearFilter = document.getElementById('yearFilter').value;
-                const rows = document.querySelectorAll('#carsTable tbody tr.car-row');
-                
-                rows.forEach(row => {
-                    const placa = row.querySelector('.placa')?.textContent.toLowerCase() || '';
-                    const marca = row.querySelector('.marca')?.textContent.toLowerCase() || '';
-                    const modelo = row.querySelector('.modelo')?.textContent.toLowerCase() || '';
-                    const ano = row.querySelector('.ano')?.textContent || '';
-                    
-                    const matchesSearch = 
-                        placa.includes(searchInput) || 
-                        marca.includes(searchInput) || 
-                        modelo.includes(searchInput);
-                    
-                    const matchesYear = yearFilter === '' || 
-                        (yearFilter === '2022' && parseInt(ano) <= 2022) || 
-                        ano === yearFilter;
-                    
-                    if (matchesSearch && matchesYear) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
+      // Script para funcionamento dos filtros e modal de visualização
+      document.addEventListener("DOMContentLoaded", function () {
+        // Função para filtrar tabela
+        function filterTable() {
+          const searchInput = document
+            .getElementById("searchInput")
+            .value.toLowerCase();
+          const yearFilter = document.getElementById("yearFilter").value;
+          const rows = document.querySelectorAll("#carsTable tbody tr.car-row");
+
+          rows.forEach((row) => {
+            const placa =
+              row.querySelector(".placa")?.textContent.toLowerCase() || "";
+            const marca =
+              row.querySelector(".marca")?.textContent.toLowerCase() || "";
+            const modelo =
+              row.querySelector(".modelo")?.textContent.toLowerCase() || "";
+            const ano = row.querySelector(".ano")?.textContent || "";
+
+            const matchesSearch =
+              placa.includes(searchInput) ||
+              marca.includes(searchInput) ||
+              modelo.includes(searchInput);
+
+            const matchesYear =
+              yearFilter === "" ||
+              (yearFilter === "2022" && parseInt(ano) <= 2022) ||
+              ano === yearFilter;
+
+            if (matchesSearch && matchesYear) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
             }
-            
-            // Adicionar event listeners para os filtros
-            document.getElementById('searchInput').addEventListener('keyup', filterTable);
-            document.getElementById('searchButton').addEventListener('click', filterTable);
-            document.getElementById('yearFilter').addEventListener('change', filterTable);
-            
-            // Modal de visualização
-            const viewCarModal = new bootstrap.Modal(document.getElementById('viewCarModal'));
-            const viewButtons = document.querySelectorAll('.btn-view');
-            
-            viewButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Pegar dados do carro
-                    const id = this.getAttribute('data-id');
-                    const placa = this.getAttribute('data-placa');
-                    const marca = this.getAttribute('data-marca');
-                    const modelo = this.getAttribute('data-modelo');
-                    const ano = this.getAttribute('data-ano');
-                    const cor = this.getAttribute('data-cor');
-                    const renavam = this.getAttribute('data-renavam');
-                    const combustivel = this.getAttribute('data-combustivel');
-                    const quilometragem = this.getAttribute('data-quilometragem');
-                    
-                    // Preencher o modal
-                    document.getElementById('modalPlaca').textContent = placa;
-                    document.getElementById('modalMarca').textContent = marca;
-                    document.getElementById('modalModelo').textContent = modelo;
-                    document.getElementById('modalAno').textContent = ano;
-                    document.getElementById('modalCor').textContent = cor;
-                    document.getElementById('modalCorCircle').style.backgroundColor = cor.toLowerCase();
-                    document.getElementById('modalRenavam').textContent = renavam;
-                    
-                    const combustivelElement = document.getElementById('modalCombustivel');
-                    combustivelElement.textContent = combustivel;
-                    combustivelElement.className = 'badge badge-fuel';
-                    
-                    // Adicionar classe baseada no tipo de combustível
-                    switch(combustivel) {
-                        case 'FLEX':
-                            combustivelElement.classList.add('bg-success');
-                            break;
-                        case 'GASOLINA':
-                            combustivelElement.classList.add('bg-danger');
-                            break;
-                        case 'DIESEL':
-                            combustivelElement.classList.add('bg-secondary');
-                            break;
-                        case 'ETANOL':
-                            combustivelElement.classList.add('bg-info');
-                            break;
-                        case 'ELETRICO':
-                            combustivelElement.classList.add('bg-primary');
-                            break;
-                        default:
-                            combustivelElement.classList.add('bg-warning');
-                    }
-                    
-                    document.getElementById('modalQuilometragem').textContent = quilometragem ? quilometragem + ' km' : '0 km';
-                    
-                    // Mostrar o modal
-                    viewCarModal.show();
-                });
-            });
+          });
+        }
+
+        // Adicionar event listeners para os filtros
+        document
+          .getElementById("searchInput")
+          .addEventListener("keyup", filterTable);
+        document
+          .getElementById("searchButton")
+          .addEventListener("click", filterTable);
+        document
+          .getElementById("yearFilter")
+          .addEventListener("change", filterTable);
+
+        // Modal de visualização
+        const viewCarModal = new bootstrap.Modal(
+          document.getElementById("viewCarModal")
+        );
+        const viewButtons = document.querySelectorAll(".btn-view");
+
+        viewButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Pegar dados do carro
+            const id = this.getAttribute("data-id");
+            const placa = this.getAttribute("data-placa");
+            const marca = this.getAttribute("data-marca");
+            const modelo = this.getAttribute("data-modelo");
+            const ano = this.getAttribute("data-ano");
+            const cor = this.getAttribute("data-cor");
+            const renavam = this.getAttribute("data-renavam");
+            const combustivel = this.getAttribute("data-combustivel");
+            const quilometragem = this.getAttribute("data-quilometragem");
+
+            // Preencher o modal
+            document.getElementById("modalPlaca").textContent = placa;
+            document.getElementById("modalMarca").textContent = marca;
+            document.getElementById("modalModelo").textContent = modelo;
+            document.getElementById("modalAno").textContent = ano;
+            document.getElementById("modalCor").textContent = cor;
+            document.getElementById("modalCorCircle").style.backgroundColor =
+              cor.toLowerCase();
+            document.getElementById("modalRenavam").textContent = renavam;
+
+            const combustivelElement =
+              document.getElementById("modalCombustivel");
+            combustivelElement.textContent = combustivel;
+            combustivelElement.className = "badge badge-fuel";
+
+            // Adicionar classe baseada no tipo de combustível
+            switch (combustivel) {
+              case "FLEX":
+                combustivelElement.classList.add("bg-success");
+                break;
+              case "GASOLINA":
+                combustivelElement.classList.add("bg-danger");
+                break;
+              case "DIESEL":
+                combustivelElement.classList.add("bg-secondary");
+                break;
+              case "ETANOL":
+                combustivelElement.classList.add("bg-info");
+                break;
+              case "ELETRICO":
+                combustivelElement.classList.add("bg-primary");
+                break;
+              default:
+                combustivelElement.classList.add("bg-warning");
+            }
+
+            document.getElementById("modalQuilometragem").textContent =
+              quilometragem ? quilometragem + " km" : "0 km";
+
+            // Mostrar o modal
+            viewCarModal.show();
+          });
         });
+      });
     </script>
-</body>
+  </body>
 </html>
