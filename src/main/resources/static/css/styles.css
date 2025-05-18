@@ -1,0 +1,162 @@
+/* styles.css */
+
+/* Estilos gerais */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+    color: #f8f9fa;
+}
+
+/* Header */
+.header-bg {
+    background-color: #212529;
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+/* Tabela de carros */
+.cars-table {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.empty-table {
+    padding: 3rem;
+    text-align: center;
+    background: #f8f9fa;
+}
+
+.actions-column {
+    width: 110px;
+}
+
+/* Botões */
+.btn-add {
+    background-color: #007bff;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.btn-save {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 30px;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-save:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cancel {
+    border-radius: 30px;
+    padding: 10px 30px;
+    margin-right: 10px;
+}
+
+/* Badges e labels */
+.badge-fuel {
+    font-size: 85%;
+    padding: 5px 10px;
+    border-radius: 30px;
+}
+
+/* Formulários */
+.car-form {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Filtros e pesquisa */
+.search-box {
+    max-width: 300px;
+}
+
+.filters-row {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* Modal de detalhes */
+.modal-dialog {
+    max-width: 700px;
+}
+
+.car-detail-header {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.car-details {
+    border: 1px solid #dee2e6;
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+}
+
+.detail-row {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}

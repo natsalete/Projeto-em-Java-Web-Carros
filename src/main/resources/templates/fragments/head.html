@@ -1,7 +1,10 @@
-<head>
+<!-- fragments/head.html -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listagem de Carros - AutoElite</title>
+    <title th:text="${titulo} + ' - AutoElite'">AutoElite</title>
     
     <link
         rel="stylesheet"
@@ -15,134 +18,9 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous"
     />
-    <style>
-        html, body {
-            height: 100%;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        main {
-            flex: 1 0 auto;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: #f8f9fa;
-        }
-        .header-bg {
-            background-color: #212529;
-            color: white;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
-        }
-        .cars-table {
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .table-header {
-            background-color: #343a40;
-            color: white;
-        }
-        .btn-add {
-            background-color: #007bff;
-            color: white;
-            border-radius: 30px;
-            padding: 10px 25px;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .btn-add:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        .btn-action {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            margin-right: 5px;
-        }
-        .badge-fuel {
-            font-size: 85%;
-            padding: 5px 10px;
-            border-radius: 30px;
-        }
-        .actions-column {
-            width: 110px;
-        }
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.02);
-        }
-        .empty-table {
-            padding: 3rem;
-            text-align: center;
-            background: #f8f9fa;
-        }
-        .search-box {
-            max-width: 300px;
-        }
-        .filters-row {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        footer {
-            margin-top: auto;
-        }
-        .modal-dialog {
-            max-width: 700px;
-        }
-        .car-detail-header {
-            background-color: #343a40;
-            color: white;
-            padding: 15px;
-            border-radius: 5px 5px 0 0;
-        }
-        .car-details {
-            border: 1px solid #dee2e6;
-            border-radius: 0 0 5px 5px;
-            padding: 20px;
-        }
-        .detail-row {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
 </head>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">AutoElite</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Veículos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Cadastro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contato</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
+<body>
+    <!-- Este arquivo contém apenas o fragmento do head -->
+</body>
+</html>

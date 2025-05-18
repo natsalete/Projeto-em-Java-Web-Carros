@@ -1,0 +1,34 @@
+<!-- fragments/navbar.html -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navbar(activeTab)" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#" th:href="@{/}">AutoElite</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activeTab == 'home'} ? 'active' : ''" 
+                           href="#" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activeTab == 'veiculos'} ? 'active' : ''" 
+                           href="#" th:href="@{/carros}">Veículos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activeTab == 'cadastro'} ? 'active' : ''" 
+                           href="#" th:href="@{/carros/create}">Cadastro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activeTab == 'contato'} ? 'active' : ''"
+                           href="#" th:href="@{/contato}">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+<!-- fragments/header.html -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <header th:fragment="header(titulo, subtitulo)" class="header-bg text-center">
+        <div class="container">
+            <h1 th:text="${titulo}">Título da Página</h1>
+            <p class="lead" th:text="${subtitulo}">Subtítulo da página</p>
+        </div>
+    </header>
+</body>
+</html>
