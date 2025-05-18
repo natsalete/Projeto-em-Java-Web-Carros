@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+  <head th:replace="~{fragments/head :: head('Listagem de Carros')}"></head>
+
+  <body>
+    <nav th:replace="~{fragments/navbar :: navbar('veiculos')}"></nav>
+    <header
+      th:replace="~{fragments/header :: header('Inventário de Veículos', 'Consulte todos os carros disponíveis na AutoElite')}"
+    ></header>
+    <div class="container"></div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <div th:replace="~{fragments/footer :: scripts}"></div>
+  </body>
+</html>
