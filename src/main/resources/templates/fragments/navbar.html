@@ -37,7 +37,7 @@
                 >Cadastro</a
               >
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 th:classappend="${activeTab == 'contato'} ? 'active' : ''"
@@ -45,7 +45,7 @@
                 th:href="@{/contato}"
                 >Contato</a
               >
-            </li>
+            </li> -->
           </ul>
           <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
             <input
@@ -53,7 +53,12 @@
               th:name="${_csrf.parameterName}"
               th:value="${_csrf.token}"
             />
-            <button type="submit" class="btn btn-block d-lg-inline-block my-2 my-sm-0" >Sair</button>
+            <button
+              type="submit"
+              class="btn btn-logout-subtle d-lg-inline-block my-2 my-sm-0"
+            >
+              Sair
+            </button>
           </form>
         </div>
       </div>
