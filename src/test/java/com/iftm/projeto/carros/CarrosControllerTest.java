@@ -52,7 +52,7 @@ public class CarrosControllerTest {
         carrosB.setAno(2025);
         carrosB.setCombustivel("FLEX");
         carrosB.setCor("azul");
-        carrosB.setMarca("Ferrari");
+        carrosB.setMarca("Ferrari B");
         carrosB.setModelo("Puro Sangue");
         carrosB.setPlaca("ABC1234");
         carrosB.setQuilometragem(0f);
